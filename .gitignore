@@ -1,0 +1,25 @@
+# CMake build folders
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# 실행파일
+*.exe
+*.out
+*.obj
+*.o
+
+# VS/CLion 환경파일
+.vs/
+.idea/
+*.sln
+*.vcxproj*
+
+# 임시/백업
+*.log
+*.swp
+*.tmp
+.DS_Store
