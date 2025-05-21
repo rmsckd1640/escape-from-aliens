@@ -1,4 +1,4 @@
-# shooting_game_project
+# 🎯shooting_game_project
 
 # Visual Studio에서 GitHub CMake 프로젝트 빌드 가이드
 
@@ -16,8 +16,7 @@
 ## 1. GitHub에서 프로젝트 clone
 
 ```bash
-git clone https://github.com/너의아이디/레포이름.git
-cd 레포이름
+git clone https://github.com/rmsckd1640/shooting_game_project.git .
 ```
 
 ---
