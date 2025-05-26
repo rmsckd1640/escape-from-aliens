@@ -3,5 +3,5 @@
 
 void enemy()
 {
-	printf("enemy함수 호출\n");
+	printf("enemy\n");
 }
