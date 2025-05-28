@@ -23,3 +23,7 @@ cmake_install.cmake
 *.swp
 *.tmp
 .DS_Store
+
+# 테스트 파일
+test.c
+test.h
