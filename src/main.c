@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include "enemy.h"
 #include "map.h"
+#include "test.h"
 
 int main(void) {
 
-    printf("Hello, World!\n");
-    enemy();
-
-    map();
+    test();
 
     getchar();
 
