@@ -5,4 +5,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(include)
 
 file(GLOB SOURCES "src/*.c")
-add_executable(shoot_game ${SOURCES})
+add_executable(shoot_game ${SOURCES} "src/test_enemy.c" "include/test_enemy.h")

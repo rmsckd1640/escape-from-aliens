@@ -2,14 +2,12 @@
 #include "enemy.h"
 #include "map.h"
 
+#include "test_enemy.h"
+
 int main(void) {
 
-    printf("Hello, World!\n");
-    enemy();
-
+    testEnemy();
     map();
-
-    getchar();
 
     return 0;
 }
