@@ -6,6 +6,7 @@ typedef struct {
     int x;
     int y;
     int active; // 1: 화면에 존재함, 0: 제거됨
+    int type; //적 종류 - E : 랜덤으로 이동 , e : 플레이어에게 다가옴
 } Enemy;
 
 //적 정보 배열

@@ -33,6 +33,8 @@ void spawnEnemy(int x, int y) {
             enemies[i].x = enemy_x;
             enemies[i].y = enemy_y;
             enemies[i].active = 1;
+            enemies[i].type = rand() % 2;
+
             break; // 하나만 생성
         }
     }
@@ -42,23 +44,35 @@ void spawnEnemy(int x, int y) {
 void moveEnemiesDown(int x, int y) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
-            // x 방향 이동
-            if (enemies[i].x < x) {
-                enemies[i].x++;
-            }
-            else if (enemies[i].x > x) {
-                enemies[i].x--;
+
+            if (enemies[i].type == 0) {//적이 플레이어 기준으로 이동하는 타입
+                // x 방향 이동
+                if (enemies[i].x < x) {
+                    enemies[i].x++;
+                }
+                else if (enemies[i].x > x) {
+                    enemies[i].x--;
+                }
+
+                // y 방향 이동
+                if (enemies[i].y < y) {
+                    enemies[i].y++;
+                }
+                else if (enemies[i].y > y) {
+                    enemies[i].y--;
+                }
             }
 
-            // y 방향 이동
-            if (enemies[i].y < y) {
-                enemies[i].y++;
-            }
-            else if (enemies[i].y > y) {
-                enemies[i].y--;
+            else if (enemies[i].type == 1) {//적이 랜덤으로 이동하는 타입
+                if (rand() % 2) {
+                    enemies[i].x += (enemies[i].x < x) ? 1 : -1;
+                }
+                else {
+                    enemies[i].y += (enemies[i].y < y) ? 1 : -1;
+                }
             }
 
-            // 화면 밖으로 나가면 비활성화
+            // 적이 플레이어에게 닿았을 시 사라짐
             if (enemies[i].x == x && enemies[i].y == y) {
                 enemies[i].active = 0;
             }
