@@ -19,8 +19,9 @@ void spawnEnemy(int x, int y) {
 
             do {
                 // 화면 범위 내에서 적 위치 랜덤 설정 
-                enemy_x = rand() % SCREEN_WIDTH;
-                enemy_y = rand() % SCREEN_HEIGHT;
+                // 맵 테두리에는 적이 생성되지 않도록 조정
+                enemy_x = (rand() % (SCREEN_WIDTH-2)) + 1;
+                enemy_y = (rand() % (SCREEN_HEIGHT-2)) + 1;
 
                 // 플레이어와의 거리 계산
                 int dx = enemy_x - x;
