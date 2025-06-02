@@ -5,26 +5,26 @@
 typedef struct {
     int x;
     int y;
-    int active; // 1: È­¸é¿¡ Á¸ÀçÇÔ, 0: Á¦°ÅµÊ
-    int type; //Àû Á¾·ù - E : ·£´ýÀ¸·Î ÀÌµ¿ , e : ÇÃ·¹ÀÌ¾î¿¡°Ô ´Ù°¡¿È
+    int active; // 1: í™”ë©´ì— ì¡´ìž¬í•¨, 0: ì œê±°ë¨
+    int type; //ì  ì¢…ë¥˜ - E : ëžœë¤ìœ¼ë¡œ ì´ë™ , e : í”Œë ˆì´ì–´ì—ê²Œ ë‹¤ê°€ì˜´
 } Enemy;
 
-//Àû Á¤º¸ ¹è¿­
+//ì  ì •ë³´ ë°°ì—´
 Enemy enemies[MAX_ENEMIES];
 
-//Àû ÃÊ±âÈ­
-//MAX_ENEMIES¿¡ ÀÔ·ÂµÈ ¼ýÀÚ¸¸Å­ Àû »ý¼º °¡´É
-//ÀûÀ» ÀüºÎ ¾ø¾Ö°í ½ÍÀ»¶§µµ »ç¿ë °¡´É
+//ì  ì´ˆê¸°í™”
+//MAX_ENEMIESì— ìž…ë ¥ëœ ìˆ«ìžë§Œí¼ ì  ìƒì„± ê°€ëŠ¥
+//ì ì„ ì „ë¶€ ì—†ì• ê³  ì‹¶ì„ë•Œë„ ì‚¬ìš© ê°€ëŠ¥
 void initEnemies();
 
-// ÀûÀ» »ý¼ºÇÏ°í Àû ¹è¿­¿¡ µî·ÏÇÑ´Ù.
-// ÇÔ¼ö È£Ãâ ½Ã Àû 1¸í »ý¼ºÇÔ.
-// @param x: ÇÃ·¹ÀÌ¾îÀÇ x À§Ä¡
-// @param y: ÇÃ·¹ÀÌ¾îÀÇ y À§Ä¡
+// ì ì„ ìƒì„±í•˜ê³  ì  ë°°ì—´ì— ë“±ë¡í•œë‹¤.
+// í•¨ìˆ˜ í˜¸ì¶œ ì‹œ ì  1ëª… ìƒì„±í•¨.
+// @param x: í”Œë ˆì´ì–´ì˜ x ìœ„ì¹˜
+// @param y: í”Œë ˆì´ì–´ì˜ y ìœ„ì¹˜
 void spawnEnemy(int x, int y);
 
-// Àû ¿òÁ÷ÀÓ ¼³Á¤
-// ÇÔ¼ö È£Ãâ ½Ã Àû¿¡ ´ëÇÑ À§Ä¡°¡ ·£´ýÀ¸·Î º¯ÇÔ.
-// @param x: ÇÃ·¹ÀÌ¾îÀÇ x À§Ä¡
-// @param y: ÇÃ·¹ÀÌ¾îÀÇ y À§Ä¡
+// ì  ì›€ì§ìž„ ì„¤ì •
+// í•¨ìˆ˜ í˜¸ì¶œ ì‹œ ì ì— ëŒ€í•œ ìœ„ì¹˜ê°€ ëžœë¤ìœ¼ë¡œ ë³€í•¨.
+// @param x: í”Œë ˆì´ì–´ì˜ x ìœ„ì¹˜
+// @param y: í”Œë ˆì´ì–´ì˜ y ìœ„ì¹˜
 void moveEnemiesDown(int x, int y);
