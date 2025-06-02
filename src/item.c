@@ -1,24 +1,24 @@
-#include <stdlib.h>
+ï»¿#include <stdlib.h>
 #include <time.h>
 #include "item.h"
 #include "map.h"
 #include "enemy.h"
 
-// ¾ÆÀÌÅÛ ¹è¿­: µ¿½Ã¿¡ È­¸é¿¡ Á¸ÀçÇÒ ¼ö ÀÖ´Â ÃÖ´ë ¾ÆÀÌÅÛ ¼ö
+// ì•„ì´í…œ ë°°ì—´: ë™ì‹œì— í™”ë©´ì— ì¡´ìž¬í•  ìˆ˜ ìžˆëŠ” ìµœëŒ€ ì•„ì´í…œ ìˆ˜
 Item items[MAX_ITEMS];
 
-// ¾ÆÀÌÅÛ Á¾·ù Á¤ÀÇ (°¢ ¹®ÀÚ¿¡ ÀÇ¹Ì ºÎ¿©)
-// '+' : Á¡¼ö È¹µæ
-// 'H' : Ã¼·Â È¸º¹ (ÇöÀç´Â Á¡¼ö·Î ´ëÃ¼ °¡´É)
-// 'S' : ¼Óµµ Áõ°¡ (ÇâÈÄ ±¸Çö °¡´É)
-// 'B' : ÆøÅº (±ÙÃ³ Àû Á¦°Å)
+// ì•„ì´í…œ ì¢…ë¥˜ ì •ì˜ (ê° ë¬¸ìžì— ì˜ë¯¸ ë¶€ì—¬)
+// '+' : ì ìˆ˜ íšë“
+// 'H' : ì²´ë ¥ íšŒë³µ (í˜„ìž¬ëŠ” ì ìˆ˜ë¡œ ëŒ€ì²´ ê°€ëŠ¥)
+// 'S' : ì†ë„ ì¦ê°€ (í–¥í›„ êµ¬í˜„ ê°€ëŠ¥)
+// 'B' : í­íƒ„ (ê·¼ì²˜ ì  ì œê±°)
 const char ITEM_TYPES[] = { '+', 'H', 'S', 'B' };
-const int ITEM_TYPES_COUNT = 4; // Á¾·ù °³¼ö
+const int ITEM_TYPES_COUNT = 4; // ì¢…ë¥˜ ê°œìˆ˜
 
 /**
- * ¾ÆÀÌÅÛ ¹è¿­ ÃÊ±âÈ­ ÇÔ¼ö
- * ¸ðµç ¾ÆÀÌÅÛÀ» ºñÈ°¼ºÈ­ »óÅÂ·Î ÃÊ±âÈ­
- * °ÔÀÓ ½ÃÀÛ ½Ã ¹Ýµå½Ã È£Ãâ ÇÊ¿ä
+ * ì•„ì´í…œ ë°°ì—´ ì´ˆê¸°í™” í•¨ìˆ˜
+ * ëª¨ë“  ì•„ì´í…œì„ ë¹„í™œì„±í™” ìƒíƒœë¡œ ì´ˆê¸°í™”
+ * ê²Œìž„ ì‹œìž‘ ì‹œ ë°˜ë“œì‹œ í˜¸ì¶œ í•„ìš”
  */
 void initItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -27,8 +27,8 @@ void initItems() {
 }
 
 /**
- * ¸Ê ³» ·£´ý À§Ä¡¿¡ ¾ÆÀÌÅÛ 1°³¸¦ »ý¼ºÇÔ
- * »ý¼ºµÈ ¾ÆÀÌÅÛÀº Á¾·ù(symbol)¿Í Áö¼Ó½Ã°£(lifetime)À» °¡Áü
+ * ë§µ ë‚´ ëžœë¤ ìœ„ì¹˜ì— ì•„ì´í…œ 1ê°œë¥¼ ìƒì„±í•¨
+ * ìƒì„±ëœ ì•„ì´í…œì€ ì¢…ë¥˜(symbol)ì™€ ì§€ì†ì‹œê°„(lifetime)ì„ ê°€ì§
  */
 void spawnItem() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -37,15 +37,15 @@ void spawnItem() {
             items[i].y = rand() % (MAP_HEIGHT - 2) + 1;
             items[i].symbol = ITEM_TYPES[rand() % ITEM_TYPES_COUNT];
             items[i].active = 1;
-            items[i].lifetime = 20; // 20ÅÏ ÈÄ »ç¶óÁü
+            items[i].lifetime = 20; // 20í„´ í›„ ì‚¬ë¼ì§
             break;
         }
     }
 }
 
 /**
- * ÇöÀç È°¼ºÈ­µÈ ¾ÆÀÌÅÛµéÀ» ¸Ê¿¡ Ç¥½ÃÇÔ
- * drawMap() È£Ãâ Àü¿¡ ÀÌ ÇÔ¼ö È£Ãâ ÇÊ¿ä
+ * í˜„ìž¬ í™œì„±í™”ëœ ì•„ì´í…œë“¤ì„ ë§µì— í‘œì‹œí•¨
+ * drawMap() í˜¸ì¶œ ì „ì— ì´ í•¨ìˆ˜ í˜¸ì¶œ í•„ìš”
  */
 void drawItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -56,13 +56,13 @@ void drawItems() {
 }
 
 /**
- * ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» ¸Ô¾ú´ÂÁö È®ÀÎÇÏ°í, È¿°ú Àû¿ë
- * - Á¡¼ö È¹µæ, Ã¼·Â È¸º¹, ¼Óµµ Áõ°¡, ÆøÅº µîÀÇ ±â´É ±¸Çö
- * - ¾ÆÀÌÅÛÀ» ¸ÔÀ¸¸é ºñÈ°¼ºÈ­µÊ
+ * í”Œë ˆì´ì–´ê°€ ì•„ì´í…œì„ ë¨¹ì—ˆëŠ”ì§€ í™•ì¸í•˜ê³ , íš¨ê³¼ ì ìš©
+ * - ì ìˆ˜ íšë“, ì²´ë ¥ íšŒë³µ, ì†ë„ ì¦ê°€, í­íƒ„ ë“±ì˜ ê¸°ëŠ¥ êµ¬í˜„
+ * - ì•„ì´í…œì„ ë¨¹ìœ¼ë©´ ë¹„í™œì„±í™”ë¨
  *
- * @param playerX ÇÃ·¹ÀÌ¾î X ÁÂÇ¥
- * @param playerY ÇÃ·¹ÀÌ¾î Y ÁÂÇ¥
- * @return Á¡¼ö º¸³Ê½º (°ÔÀÓ Á¡¼ö Áõ°¡¿ë)
+ * @param playerX í”Œë ˆì´ì–´ X ì¢Œí‘œ
+ * @param playerY í”Œë ˆì´ì–´ Y ì¢Œí‘œ
+ * @return ì ìˆ˜ ë³´ë„ˆìŠ¤ (ê²Œìž„ ì ìˆ˜ ì¦ê°€ìš©)
  */
 int checkItemCollision(int playerX, int playerY) {
     int bonus = 0;
@@ -72,32 +72,32 @@ int checkItemCollision(int playerX, int playerY) {
             items[i].x == playerX &&
             items[i].y == playerY) {
 
-            // Ãæµ¹ÇÑ ¾ÆÀÌÅÛ Á¾·ù¿¡ µû¸¥ È¿°ú Ã³¸®
+            // ì¶©ëŒí•œ ì•„ì´í…œ ì¢…ë¥˜ì— ë”°ë¥¸ íš¨ê³¼ ì²˜ë¦¬
             switch (items[i].symbol) {
-            case '+': // Á¡¼ö ¾ÆÀÌÅÛ
+            case '+': // ì ìˆ˜ ì•„ì´í…œ
                 bonus = 10;
                 break;
-            case 'H': // Ã¼·Â È¸º¹ ¡æ Á¡¼ö·Î ´ëÃ¼ °¡´É
+            case 'H': // ì²´ë ¥ íšŒë³µ â†’ ì ìˆ˜ë¡œ ëŒ€ì²´ ê°€ëŠ¥
                 bonus = 5;
                 break;
-            case 'S': // ¼Óµµ Áõ°¡ (ÇöÀç ±â´É ¾øÀ½)
+            case 'S': // ì†ë„ ì¦ê°€ (í˜„ìž¬ ê¸°ëŠ¥ ì—†ìŒ)
                 bonus = 0;
                 break;
-            case 'B': // ÆøÅº ¾ÆÀÌÅÛ: ÁÖº¯ ¹Ý°æ 2 ÀÌÇÏÀÇ Àû Á¦°Å
+            case 'B': // í­íƒ„ ì•„ì´í…œ: ì£¼ë³€ ë°˜ê²½ 2 ì´í•˜ì˜ ì  ì œê±°
                 for (int j = 0; j < MAX_ENEMIES; j++) {
                     if (enemies[j].active) {
                         int dx = enemies[j].x - playerX;
                         int dy = enemies[j].y - playerY;
-                        if (dx * dx + dy * dy <= 4) { // ¡î(dx©÷+dy©÷) ¡Â 2
+                        if (dx * dx + dy * dy <= 4) { // âˆš(dxÂ²+dyÂ²) â‰¤ 2
                             enemies[j].active = 0;
-                            bonus += 3; // Àû ÇÏ³ª´ç 3Á¡
+                            bonus += 3; // ì  í•˜ë‚˜ë‹¹ 3ì 
                         }
                     }
                 }
                 break;
             }
 
-            // ¾ÆÀÌÅÛ È¿°ú Àû¿ë ÈÄ ºñÈ°¼ºÈ­
+            // ì•„ì´í…œ íš¨ê³¼ ì ìš© í›„ ë¹„í™œì„±í™”
             items[i].active = 0;
             break;
         }
@@ -107,9 +107,9 @@ int checkItemCollision(int playerX, int playerY) {
 }
 
 /**
- * ¸Å ÅÏ¸¶´Ù ¾ÆÀÌÅÛÀÇ ¼ö¸íÀ» °¨¼Ò½ÃÅ°°í,
- * ¼ö¸íÀÌ 0ÀÌ µÇ¸é ÀÚµ¿À¸·Î »ç¶óÁö°Ô Ã³¸®ÇÔ
- * ÀÌ ÇÔ¼ö´Â °ÔÀÓ ·çÇÁ ³»¿¡¼­ ¸Å ÇÁ·¹ÀÓ/ÅÏ¸¶´Ù È£Ãâ ÇÊ¿ä
+ * ë§¤ í„´ë§ˆë‹¤ ì•„ì´í…œì˜ ìˆ˜ëª…ì„ ê°ì†Œì‹œí‚¤ê³ ,
+ * ìˆ˜ëª…ì´ 0ì´ ë˜ë©´ ìžë™ìœ¼ë¡œ ì‚¬ë¼ì§€ê²Œ ì²˜ë¦¬í•¨
+ * ì´ í•¨ìˆ˜ëŠ” ê²Œìž„ ë£¨í”„ ë‚´ì—ì„œ ë§¤ í”„ë ˆìž„/í„´ë§ˆë‹¤ í˜¸ì¶œ í•„ìš”
  */
 void updateItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
