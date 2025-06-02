@@ -18,35 +18,35 @@ void spawnEnemy(int x, int y) {
             double distance;
 
             do {
-                // È­¸é ¹üÀ§ ³»¿¡¼­ Àû À§Ä¡ ·£´ı ¼³Á¤ 
-                // ¸Ê Å×µÎ¸®¿¡´Â ÀûÀÌ »ı¼ºµÇÁö ¾Êµµ·Ï Á¶Á¤
+                // í™”ë©´ ë²”ìœ„ ë‚´ì—ì„œ ì  ìœ„ì¹˜ ëœë¤ ì„¤ì • 
+                // ë§µ í…Œë‘ë¦¬ì—ëŠ” ì ì´ ìƒì„±ë˜ì§€ ì•Šë„ë¡ ì¡°ì •
                 enemy_x = (rand() % (SCREEN_WIDTH-2)) + 1;
                 enemy_y = (rand() % (SCREEN_HEIGHT-2)) + 1;
 
-                // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸® °è»ê
+                // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ ê³„ì‚°
                 int dx = enemy_x - x;
                 int dy = enemy_y - y;
                 distance = sqrt((double)dx * dx + (double)dy * dy);
 
-            } while (distance < 3);  // °Å¸® 3 ¹Ì¸¸ÀÌ¸é ´Ù½Ã »ı¼º
+            } while (distance < 3);  // ê±°ë¦¬ 3 ë¯¸ë§Œì´ë©´ ë‹¤ì‹œ ìƒì„±
 
             enemies[i].x = enemy_x;
             enemies[i].y = enemy_y;
             enemies[i].active = 1;
             enemies[i].type = rand() % 2;
 
-            break; // ÇÏ³ª¸¸ »ı¼º
+            break; // í•˜ë‚˜ë§Œ ìƒì„±
         }
     }
 }
 
-//Àû ÀÌµ¿ ¾Ë°í¸®Áò ÃßÈÄ °³¼±
+//ì  ì´ë™ ì•Œê³ ë¦¬ì¦˜ ì¶”í›„ ê°œì„ 
 void moveEnemiesDown(int x, int y) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
 
-            if (enemies[i].type == 0) {//ÀûÀÌ ÇÃ·¹ÀÌ¾î ±âÁØÀ¸·Î ÀÌµ¿ÇÏ´Â Å¸ÀÔ
-                // x ¹æÇâ ÀÌµ¿
+            if (enemies[i].type == 0) {//ì ì´ í”Œë ˆì´ì–´ ê¸°ì¤€ìœ¼ë¡œ ì´ë™í•˜ëŠ” íƒ€ì…
+                // x ë°©í–¥ ì´ë™
                 if (enemies[i].x < x) {
                     enemies[i].x++;
                 }
@@ -54,7 +54,7 @@ void moveEnemiesDown(int x, int y) {
                     enemies[i].x--;
                 }
 
-                // y ¹æÇâ ÀÌµ¿
+                // y ë°©í–¥ ì´ë™
                 if (enemies[i].y < y) {
                     enemies[i].y++;
                 }
@@ -63,7 +63,7 @@ void moveEnemiesDown(int x, int y) {
                 }
             }
 
-            else if (enemies[i].type == 1) {//ÀûÀÌ ·£´ıÀ¸·Î ÀÌµ¿ÇÏ´Â Å¸ÀÔ
+            else if (enemies[i].type == 1) {//ì ì´ ëœë¤ìœ¼ë¡œ ì´ë™í•˜ëŠ” íƒ€ì…
                 if (rand() % 2) {
                     enemies[i].x += (enemies[i].x < x) ? 1 : -1;
                 }
@@ -72,7 +72,7 @@ void moveEnemiesDown(int x, int y) {
                 }
             }
 
-            // ÀûÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ´ê¾ÒÀ» ½Ã »ç¶óÁü
+            // ì ì´ í”Œë ˆì´ì–´ì—ê²Œ ë‹¿ì•˜ì„ ì‹œ ì‚¬ë¼ì§
             if (enemies[i].x == x && enemies[i].y == y) {
                 enemies[i].active = 0;
             }
