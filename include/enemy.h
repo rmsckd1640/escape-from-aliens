@@ -12,15 +12,19 @@ typedef struct {
 //적 정보 배열
 Enemy enemies[MAX_ENEMIES];
 
-//적 초기화 , 임시로 최대 10마리 -> 동적으로 조절가능하게 개선 가능
+//적 초기화
+//MAX_ENEMIES에 입력된 숫자만큼 적 생성 가능
+//적을 전부 없애고 싶을때도 사용 가능
 void initEnemies();
 
 // 적을 생성하고 적 배열에 등록한다.
+// 함수 호출 시 적 1명 생성함.
 // @param x: 플레이어의 x 위치
 // @param y: 플레이어의 y 위치
 void spawnEnemy(int x, int y);
 
 // 적 움직임 설정
+// 함수 호출 시 적에 대한 위치가 랜덤으로 변함.
 // @param x: 플레이어의 x 위치
 // @param y: 플레이어의 y 위치
 void moveEnemiesDown(int x, int y);
