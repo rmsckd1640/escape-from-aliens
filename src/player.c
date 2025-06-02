@@ -15,3 +15,17 @@ void heal(PlayerHP* p, int amount) {
     p->hp += amount; // HP에 회복량만큼 추가
     if (p->hp > p->max_hp) p->hp = p->max_hp; // HP가 최대 HP보다 커지면 최대 HP로 고정
 }
+
+void initPosition(Position* pos) { // 플레이어 좌표 초기화
+    pos->x = 0;
+    pos->y = 0;
+}
+
+void move(Position* pos, char dir) { // wasd 키를 입력해 좌표 이동
+    switch (dir) {
+    case 'w': pos->y--; break; // 위
+    case 's': pos->y++; break; // 아래
+    case 'a': pos->x--; break; // 왼쪽
+    case 'd': pos->x++; break; // 오른쪽
+    }
+}
