@@ -1,4 +1,4 @@
-#ifndef ITEM_H
+ï»¿#ifndef ITEM_H
 #define ITEM_H
 
 #define MAX_ITEMS 10
@@ -16,6 +16,6 @@ void initItems();
 void spawnItem();
 void drawItems();
 int checkItemCollision(int playerX, int playerY);
-void updateItems(); // ¼ö¸í °¨¼Ò Ã³¸®
+void updateItems(); // ìˆ˜ëª… ê°ì†Œ ì²˜ë¦¬
 
 #endif
