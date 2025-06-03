@@ -1,24 +1,17 @@
-#include <stdlib.h>
+ï»¿#include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include "item.h"
 #include "map.h"
 #include "enemy.h"
 
-// ¾ÆÀÌÅÛ ¹è¿­: µ¿½Ã¿¡ È­¸é¿¡ Á¸ÀçÇÒ ¼ö ÀÖ´Â ÃÖ´ë ¾ÆÀÌÅÛ ¼ö
 Item items[MAX_ITEMS];
 
-// ¾ÆÀÌÅÛ Á¾·ù Á¤ÀÇ (°¢ ¹®ÀÚ¿¡ ÀÇ¹Ì ºÎ¿©)
-// '+' : Á¡¼ö È¹µæ
-// 'H' : Ã¼·Â È¸º¹ (ÇöÀç´Â Á¡¼ö·Î ´ëÃ¼ °¡´É)
-// 'S' : ¼Óµµ Áõ°¡ (ÇâÈÄ ±¸Çö °¡´É)
-// 'B' : ÆøÅº (±ÙÃ³ Àû Á¦°Å)
-const char ITEM_TYPES[] = { '+', 'H', 'S', 'B' };
-const int ITEM_TYPES_COUNT = 4; // Á¾·ù °³¼ö
+// ì•„ì´í…œ ì¢…ë¥˜ ì •ì˜
+const int ITEM_TYPES_COUNT = 4;
 
 /**
- * ¾ÆÀÌÅÛ ¹è¿­ ÃÊ±âÈ­ ÇÔ¼ö
- * ¸ðµç ¾ÆÀÌÅÛÀ» ºñÈ°¼ºÈ­ »óÅÂ·Î ÃÊ±âÈ­
- * °ÔÀÓ ½ÃÀÛ ½Ã ¹Ýµå½Ã È£Ãâ ÇÊ¿ä
+ * ì•„ì´í…œ ë°°ì—´ ì´ˆê¸°í™”
  */
 void initItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -27,25 +20,49 @@ void initItems() {
 }
 
 /**
- * ¸Ê ³» ·£´ý À§Ä¡¿¡ ¾ÆÀÌÅÛ 1°³¸¦ »ý¼ºÇÔ
- * »ý¼ºµÈ ¾ÆÀÌÅÛÀº Á¾·ù(symbol)¿Í Áö¼Ó½Ã°£(lifetime)À» °¡Áü
+ * íŠ¹ì • í™•ë¥ ë¡œ ì•„ì´í…œ ì¢…ë¥˜ë¥¼ ê²°ì •
+ */
+char getRandomItemSymbol() {
+    int r = rand() % 100;
+    if (r < 50) return '+';       // 50% í™•ë¥ 
+    else if (r < 75) return 'H';  // 25%
+    else if (r < 90) return 'S';  // 15%
+    else return 'B';              // 10%
+}
+
+/**
+ * ì¤‘ë³µë˜ì§€ ì•Šë„ë¡ ì•„ì´í…œ 1ê°œë¥¼ ë§µì— ìƒì„±
  */
 void spawnItem() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (!items[i].active) {
-            items[i].x = rand() % (MAP_WIDTH - 2) + 1;
-            items[i].y = rand() % (MAP_HEIGHT - 2) + 1;
-            items[i].symbol = ITEM_TYPES[rand() % ITEM_TYPES_COUNT];
+            int px, py;
+            int overlap;
+            do {
+                px = rand() % (MAP_WIDTH - 2) + 1;
+                py = rand() % (MAP_HEIGHT - 2) + 1;
+
+                overlap = 0;
+                for (int j = 0; j < MAX_ITEMS; j++) {
+                    if (items[j].active && items[j].x == px && items[j].y == py) {
+                        overlap = 1;
+                        break;
+                    }
+                }
+            } while (overlap);
+
+            items[i].x = px;
+            items[i].y = py;
+            items[i].symbol = getRandomItemSymbol();
             items[i].active = 1;
-            items[i].lifetime = 20; // 20ÅÏ ÈÄ »ç¶óÁü
+            items[i].lifetime = 20;
             break;
         }
     }
 }
 
 /**
- * ÇöÀç È°¼ºÈ­µÈ ¾ÆÀÌÅÛµéÀ» ¸Ê¿¡ Ç¥½ÃÇÔ
- * drawMap() È£Ãâ Àü¿¡ ÀÌ ÇÔ¼ö È£Ãâ ÇÊ¿ä
+ * í™œì„±í™”ëœ ì•„ì´í…œ ë§µì— í‘œì‹œ
  */
 void drawItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -56,15 +73,9 @@ void drawItems() {
 }
 
 /**
- * ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» ¸Ô¾ú´ÂÁö È®ÀÎÇÏ°í, È¿°ú Àû¿ë
- * - Á¡¼ö È¹µæ, Ã¼·Â È¸º¹, ¼Óµµ Áõ°¡, ÆøÅº µîÀÇ ±â´É ±¸Çö
- * - ¾ÆÀÌÅÛÀ» ¸ÔÀ¸¸é ºñÈ°¼ºÈ­µÊ
- *
- * @param playerX ÇÃ·¹ÀÌ¾î X ÁÂÇ¥
- * @param playerY ÇÃ·¹ÀÌ¾î Y ÁÂÇ¥
- * @return Á¡¼ö º¸³Ê½º (°ÔÀÓ Á¡¼ö Áõ°¡¿ë)
+ * í”Œë ˆì´ì–´ì™€ ì•„ì´í…œ ì¶©ëŒ í™•ì¸ ë° íš¨ê³¼ ì ìš©
  */
-int checkItemCollision(int playerX, int playerY) {
+int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
     int bonus = 0;
 
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -72,32 +83,34 @@ int checkItemCollision(int playerX, int playerY) {
             items[i].x == playerX &&
             items[i].y == playerY) {
 
-            // Ãæµ¹ÇÑ ¾ÆÀÌÅÛ Á¾·ù¿¡ µû¸¥ È¿°ú Ã³¸®
             switch (items[i].symbol) {
-            case '+': // Á¡¼ö ¾ÆÀÌÅÛ
+            case '+':
+                printf("[ì•„ì´í…œ] ì ìˆ˜ +10!\n");
                 bonus = 10;
                 break;
-            case 'H': // Ã¼·Â È¸º¹ ¡æ Á¡¼ö·Î ´ëÃ¼ °¡´É
+            case 'H':
+                printf("[ì•„ì´í…œ] ì²´ë ¥ íšŒë³µ +5!\n");
                 bonus = 5;
                 break;
-            case 'S': // ¼Óµµ Áõ°¡ (ÇöÀç ±â´É ¾øÀ½)
-                bonus = 0;
+            case 'S':
+                printf("[ì•„ì´í…œ] ì†ë„ ì¦ê°€!\n");
+                *speedBoostTurns = 10;
                 break;
-            case 'B': // ÆøÅº ¾ÆÀÌÅÛ: ÁÖº¯ ¹Ý°æ 2 ÀÌÇÏÀÇ Àû Á¦°Å
+            case 'B':
+                printf("[ì•„ì´í…œ] í­íƒ„ ë°œë™!\n");
                 for (int j = 0; j < MAX_ENEMIES; j++) {
                     if (enemies[j].active) {
                         int dx = enemies[j].x - playerX;
                         int dy = enemies[j].y - playerY;
-                        if (dx * dx + dy * dy <= 4) { // ¡î(dx©÷+dy©÷) ¡Â 2
+                        if (dx * dx + dy * dy <= 4) {
                             enemies[j].active = 0;
-                            bonus += 3; // Àû ÇÏ³ª´ç 3Á¡
+                            bonus += 3;
                         }
                     }
                 }
                 break;
             }
 
-            // ¾ÆÀÌÅÛ È¿°ú Àû¿ë ÈÄ ºñÈ°¼ºÈ­
             items[i].active = 0;
             break;
         }
@@ -107,9 +120,7 @@ int checkItemCollision(int playerX, int playerY) {
 }
 
 /**
- * ¸Å ÅÏ¸¶´Ù ¾ÆÀÌÅÛÀÇ ¼ö¸íÀ» °¨¼Ò½ÃÅ°°í,
- * ¼ö¸íÀÌ 0ÀÌ µÇ¸é ÀÚµ¿À¸·Î »ç¶óÁö°Ô Ã³¸®ÇÔ
- * ÀÌ ÇÔ¼ö´Â °ÔÀÓ ·çÇÁ ³»¿¡¼­ ¸Å ÇÁ·¹ÀÓ/ÅÏ¸¶´Ù È£Ãâ ÇÊ¿ä
+ * ë§¤ í„´ ì•„ì´í…œ ìˆ˜ëª… ê°ì†Œ ì²˜ë¦¬
  */
 void updateItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
