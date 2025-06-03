@@ -1,11 +1,11 @@
-#ifndef SCORE_H
+ï»¿#ifndef SCORE_H
 #define SCORE_H
 
 extern int score;
 
-void initScore();               // Á¡¼ö ÃÊ±âÈ­
-void addScore(int s);           // Á¡¼ö Ãß°¡
-void printScore();              // ÇöÀç Á¡¼ö Ãâ·Â
-void saveScoreToFile();         // Á¡¼ö ±â·ÏÀ» ÆÄÀÏ¿¡ ÀúÀå
+void initScore();               // ì ìˆ˜ ì´ˆê¸°í™”
+void addScore(int s);           // ì ìˆ˜ ì¶”ê°€
+void printScore();              // í˜„ì¬ ì ìˆ˜ ì¶œë ¥
+void saveScoreToFile();         // ì ìˆ˜ ê¸°ë¡ì„ íŒŒì¼ì— ì €ì¥
 
 #endif
