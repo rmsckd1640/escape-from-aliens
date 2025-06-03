@@ -1,3 +1,6 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #define MAX_ENEMIES 100
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 20
@@ -7,7 +10,7 @@ typedef struct {
     int y;
     int active; // 1: 화면에 존재함, 0: 제거됨
     int type; //적 종류 - E : 랜덤으로 이동 , e : 플레이어에게 다가옴
-} Enemy;
+}Enemy;
 
 //적 정보 배열
 Enemy enemies[MAX_ENEMIES];
@@ -28,3 +31,4 @@ void spawnEnemy(int x, int y);
 // @param x: 플레이어의 x 위치
 // @param y: 플레이어의 y 위치
 void moveEnemiesDown(int x, int y);
+#endif

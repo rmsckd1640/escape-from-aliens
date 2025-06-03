@@ -1,12 +1,9 @@
 ﻿#include "battle.h"
 #include <stdio.h>
 
-// Enemy 구조체가 정의된 enemy.h 포함 필요
-#include "enemy.h"
-#include "player.h"
+//적 충돌 시 player hp 깎임.
+//추후 player 구조체 변경 시 수정.
 
-//적 충돌 시 player 데미지
-//추후 player 구조체 변경 시 수정
 void checkEnemyCollision(PlayerHP* playerHp, const Position* playerPos, Enemy* enemies, int enemyCount) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (!enemies[i].active) continue;//적 없으면 건너뜀.
@@ -18,3 +15,4 @@ void checkEnemyCollision(PlayerHP* playerHp, const Position* playerPos, Enemy* e
         }
     }
 }
+
