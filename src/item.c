@@ -7,37 +7,26 @@
 
 Item items[MAX_ITEMS];
 
-// 아이템 종류 정의
 const int ITEM_TYPES_COUNT = 4;
 
-/**
- * 아이템 배열 초기화
- */
 void initItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         items[i].active = 0;
     }
 }
 
-/**
- * 특정 확률로 아이템 종류를 결정
- */
 char getRandomItemSymbol() {
     int r = rand() % 100;
-    if (r < 50) return '+';       // 50% 확률
-    else if (r < 75) return 'H';  // 25%
-    else if (r < 90) return 'S';  // 15%
-    else return 'B';              // 10%
+    if (r < 50) return '+';       // 점수
+    else if (r < 75) return 'H';  // 체력
+    else if (r < 90) return 'S';  // 속도
+    else return 'B';              // 폭탄
 }
 
-/**
- * 중복되지 않도록 아이템 1개를 맵에 생성
- */
 void spawnItem() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (!items[i].active) {
-            int px, py;
-            int overlap;
+            int px, py, overlap;
             do {
                 px = rand() % (MAP_WIDTH - 2) + 1;
                 py = rand() % (MAP_HEIGHT - 2) + 1;
@@ -61,9 +50,6 @@ void spawnItem() {
     }
 }
 
-/**
- * 활성화된 아이템 맵에 표시
- */
 void drawItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (items[i].active) {
@@ -72,9 +58,6 @@ void drawItems() {
     }
 }
 
-/**
- * 플레이어와 아이템 충돌 확인 및 효과 적용
- */
 int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
     int bonus = 0;
 
@@ -119,9 +102,6 @@ int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
     return bonus;
 }
 
-/**
- * 매 턴 아이템 수명 감소 처리
- */
 void updateItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (items[i].active) {
@@ -129,6 +109,31 @@ void updateItems() {
             if (items[i].lifetime <= 0) {
                 items[i].active = 0;
             }
+        }
+    }
+}
+
+void respawnItems() {
+    for (int i = 0; i < MAX_ITEMS; i++) {
+        if (items[i].active && items[i].lifetime <= 5) { // 수명이 거의 끝난 아이템만 재배치
+            int px, py, overlap;
+            do {
+                px = rand() % (MAP_WIDTH - 2) + 1;
+                py = rand() % (MAP_HEIGHT - 2) + 1;
+
+                overlap = 0;
+                for (int j = 0; j < MAX_ITEMS; j++) {
+                    if (items[j].active && items[j].x == px && items[j].y == py) {
+                        overlap = 1;
+                        break;
+                    }
+                }
+            } while (overlap);
+
+            items[i].x = px;
+            items[i].y = py;
+            items[i].lifetime = 20;
+            printf("[재배치] 아이템 '%c'이 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
         }
     }
 }
