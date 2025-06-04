@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "map.h"
-
-char map[MAP_HEIGHT][MAP_WIDTH];
+#include "enemy.h"  // 적 정보 사용을 위해 추가
 
 void initMap(void) {
     for (int y = 0; y < MAP_HEIGHT; y++) {
@@ -22,6 +21,13 @@ void initMap(void) {
 }
 
 void drawMap(void) {
+    // 적 그리기
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        if (enemies[i].active) {
+            map[enemies[i].y][enemies[i].x] = 'E';  // 적을 'E'로 표시
+        }
+    }
+
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
             putchar(map[y][x]);
