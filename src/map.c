@@ -21,6 +21,7 @@ void initMap(void) {
 }
 
 void drawMap(void) {
+    initMap();
     // 적 그리기
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
