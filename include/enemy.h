@@ -2,8 +2,9 @@
 #define ENEMY_H
 
 #define MAX_ENEMIES 100
-#define SCREEN_WIDTH 40
-#define SCREEN_HEIGHT 20
+
+#include "player.h"
+#include "map.h"
 
 typedef struct {
     int x;
@@ -22,13 +23,11 @@ void initEnemies();
 
 // 적을 생성하고 적 배열에 등록한다.
 // 함수 호출 시 적 1명 생성함.
-// @param x: 플레이어의 x 위치
-// @param y: 플레이어의 y 위치
-void spawnEnemy(int x, int y);
+// @param pos: player 위치 정보 
+void spawnEnemy(const Position pos);
 
 // 적 움직임 설정
 // 함수 호출 시 적에 대한 위치가 랜덤으로 변함.
-// @param x: 플레이어의 x 위치
-// @param y: 플레이어의 y 위치
-void moveEnemiesDown(int x, int y);
+// @param pos: player 위치 정보 
+void moveEnemiesDown(const Position pos);
 #endif
