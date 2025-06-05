@@ -1,14 +1,16 @@
 ﻿#ifndef ITEM_H
 #define ITEM_H
 
+#include "player.h"  // PlayerHP 구조체 사용을 위해 필요
+
 #define MAX_ITEMS 10  // 동시에 화면에 존재할 수 있는 최대 아이템 수
 
 /**
  * 아이템 구조체 정의
  * - x, y: 아이템 위치
- * - symbol: 아이템 종류 ('H', 'B')
- * - active: 1이면 활성, 0이면 비활성
- * - lifetime: 남은 턴 수 (0이면 사라짐)
+ * - symbol: 아이템 종류 ('H': 체력, 'B': 폭탄)
+ * - active: 아이템 활성 여부 (1: 활성, 0: 비활성)
+ * - lifetime: 남은 턴 수 (0이 되면 사라짐)
  */
 typedef struct {
     int x, y;
@@ -25,7 +27,7 @@ void initItems();
 
 /**
  * spawnItem
- * - 맵 내에서 중복되지 않도록 아이템을 1개 생성합니다.
+ * - 맵 내 중복되지 않는 위치에 아이템을 1개 생성합니다.
  */
 void spawnItem();
 
@@ -37,27 +39,31 @@ void drawItems();
 
 /**
  * checkItemCollision
- * - 플레이어와 충돌한 아이템을 처리하고 효과를 적용합니다.
- * - 현재는 체력 회복('H'), 폭탄('B') 효과만 존재합니다.
+ * - 플레이어 위치에 있는 아이템과 충돌 시 효과를 적용합니다.
+ *   'H': 체력 회복 / 'B': 주변 적 제거
  *
- * @param playerX: 플레이어 x 좌표
- * @param playerY: 플레이어 y 좌표
- * @param speedBoostTurns: (더 이상 사용되지 않음)
- * @return H이면 5, B이면 0
+ * @param playerX 플레이어 x 좌표
+ * @param playerY 플레이어 y 좌표
+ * @param hp 플레이어 체력 구조체 포인터
  */
-int checkItemCollision(int playerX, int playerY, int* speedBoostTurns);
+void checkItemCollision(int playerX, int playerY, PlayerHP* hp);
 
 /**
  * updateItems
- * - 아이템의 수명을 감소시키고, 수명이 다 되면 제거합니다.
+ * - 아이템 수명을 1 감소시키고, 수명이 다 되면 비활성화합니다.
  */
 void updateItems();
 
 /**
  * respawnItems
- * - 수명이 거의 다 된 활성 아이템을 새로운 위치로 재배치합니다.
- * - lifetime이 5 이하인 경우만 대상이 됩니다.
+ * - 수명이 5 이하인 활성 아이템을 새 위치로 이동시킵니다.
  */
 void respawnItems();
 
-#endif
+/**
+ * printHPBar
+ * - 플레이어 체력을 ♥ / ♡ 형태로 출력합니다. 예: ♥♥♥♡♡ (3/5)
+ */
+void printHPBar(PlayerHP* hp);
+
+#endif  // ITEM_H
