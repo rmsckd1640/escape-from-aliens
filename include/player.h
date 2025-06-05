@@ -1,21 +1,21 @@
-#ifndef PLAYER_H
+ï»¿#ifndef PLAYER_H
 #define PLAYER_H
 
-typedef struct { // ÇÃ·¹ÀÌ¾î HP Á¤º¸
+typedef struct { // í”Œë ˆì´ì–´ HP ì •ë³´
     int hp;
     int max_hp;
 } PlayerHP;
 
-typedef struct { // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ Á¤º¸
+typedef struct { // í”Œë ˆì´ì–´ ì¢Œí‘œ ì •ë³´
     int x;
     int y;
 } Position;
 
-void initHP(PlayerHP* p); // ÇÃ·¹ÀÌ¾î HP ÃÊ±âÈ­
-void takeDamage(PlayerHP* p, int dmg); // ÇÃ·¹ÀÌ¾î°¡ µ¥¹ÌÁö¸¦ ÀÔ¾úÀ» ¶§ HP °¨¼Ò
-void heal(PlayerHP* p, int amount); // ÇÃ·¹ÀÌ¾î°¡ È¸º¹ÇÒ ¶§ HP Áõ°¡
+void initHP(PlayerHP* p); // í”Œë ˆì´ì–´ HP ì´ˆê¸°í™”
+void takeDamage(PlayerHP* p, int dmg); // í”Œë ˆì´ì–´ê°€ ë°ë¯¸ì§€ë¥¼ ì…ì—ˆì„ ë•Œ HP ê°ì†Œ
+void heal(PlayerHP* p, int amount); // í”Œë ˆì´ì–´ê°€ íšŒë³µí•  ë•Œ HP ì¦ê°€
 
-void initPosition(Position* pos); // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÃÊ±âÈ­
-void move(Position* pos, char dir); // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÀÌµ¿
+void initPosition(Position* pos); // í”Œë ˆì´ì–´ ì¢Œí‘œ ì´ˆê¸°í™”
+void move(Position* pos, char dir); // í”Œë ˆì´ì–´ ì¢Œí‘œ ì´ë™
 
 #endif
