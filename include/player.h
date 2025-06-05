@@ -1,21 +1,24 @@
-#ifndef PLAYER_H
+ï»¿#ifndef PLAYER_H
 #define PLAYER_H
 
-typedef struct { // ÇÃ·¹ÀÌ¾î HP Á¤º¸
-    int hp;
-    int max_hp;
-} PlayerHP;
+#include "map.h"
 
-typedef struct { // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ Á¤º¸
+typedef struct { // í”Œë ˆì´ì–´ ì •ë³´
+    int hp;
+    int max_hp; 
     int x;
     int y;
-} Position;
+} Player;
 
-void initHP(PlayerHP* p); // ÇÃ·¹ÀÌ¾î HP ÃÊ±âÈ­
-void takeDamage(PlayerHP* p, int dmg); // ÇÃ·¹ÀÌ¾î°¡ µ¥¹ÌÁö¸¦ ÀÔ¾úÀ» ¶§ HP °¨¼Ò
-void heal(PlayerHP* p, int amount); // ÇÃ·¹ÀÌ¾î°¡ È¸º¹ÇÒ ¶§ HP Áõ°¡
+Player p;
 
-void initPosition(Position* pos); // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÃÊ±âÈ­
-void move(Position* pos, char dir); // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÀÌµ¿
+void initHP(Player* p); // í”Œë ˆì´ì–´ HP ì´ˆê¸°í™”
+void takeDamage(Player* p, int dmg); // í”Œë ˆì´ì–´ê°€ ë°ë¯¸ì§€ë¥¼ ì…ì—ˆì„ ë•Œ HP ê°ì†Œ
+void heal(Player* p, int amount); // í”Œë ˆì´ì–´ê°€ íšŒë³µí•  ë•Œ HP ì¦ê°€
+
+void initPosition(Player* pos); // í”Œë ˆì´ì–´ ì¢Œí‘œ ì´ˆê¸°í™”
+void move(Player* pos, char dir); // í”Œë ˆì´ì–´ ì¢Œí‘œ ì´ë™
+
+void drawPlayer(Player* p, char map[][MAP_WIDTH]); // í”Œë ˆì´ì–´ í™”ë©´ ì¶œë ¥
 
 #endif
