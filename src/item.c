@@ -7,7 +7,7 @@
 
 Item items[MAX_ITEMS];
 
-const int ITEM_TYPES_COUNT = 4;
+const int ITEM_TYPES_COUNT = 2;
 
 void initItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -16,11 +16,7 @@ void initItems() {
 }
 
 char getRandomItemSymbol() {
-    int r = rand() % 100;
-    if (r < 50) return '+';       // 점수
-    else if (r < 75) return 'H';  // 체력
-    else if (r < 90) return 'S';  // 속도
-    else return 'B';              // 폭탄
+    return (rand() % 100 < 60) ? 'H' : 'B';  // 체력 또는 폭탄
 }
 
 void spawnItem() {
@@ -62,22 +58,11 @@ int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
     int bonus = 0;
 
     for (int i = 0; i < MAX_ITEMS; i++) {
-        if (items[i].active &&
-            items[i].x == playerX &&
-            items[i].y == playerY) {
-
+        if (items[i].active && items[i].x == playerX && items[i].y == playerY) {
             switch (items[i].symbol) {
-            case '+':
-                printf("[아이템] 점수 +10!\n");
-                bonus = 10;
-                break;
             case 'H':
                 printf("[아이템] 체력 회복 +5!\n");
                 bonus = 5;
-                break;
-            case 'S':
-                printf("[아이템] 속도 증가!\n");
-                *speedBoostTurns = 10;
                 break;
             case 'B':
                 printf("[아이템] 폭탄 발동!\n");
@@ -87,7 +72,6 @@ int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
                         int dy = enemies[j].y - playerY;
                         if (dx * dx + dy * dy <= 4) {
                             enemies[j].active = 0;
-                            bonus += 3;
                         }
                     }
                 }
@@ -115,7 +99,7 @@ void updateItems() {
 
 void respawnItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
-        if (items[i].active && items[i].lifetime <= 5) { // 수명이 거의 끝난 아이템만 재배치
+        if (items[i].active && items[i].lifetime <= 5) {
             int px, py, overlap;
             do {
                 px = rand() % (MAP_WIDTH - 2) + 1;
@@ -133,7 +117,7 @@ void respawnItems() {
             items[i].x = px;
             items[i].y = py;
             items[i].lifetime = 20;
-            printf("[재배치] 아이템 '%c'이 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
+            printf("[재배치] 아이템 '%c'이(가) 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
         }
     }
 }
