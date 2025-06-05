@@ -1,5 +1,6 @@
 ﻿#include <stdio.h>
 #include "player.h"
+#include "map.h"
 
 void initHP(Player* p) { // 플레이어 HP 초기화
     p->max_hp = 3;
@@ -17,8 +18,8 @@ void heal(Player* p, int amount) {
 }
 
 void initPosition(Player* pos) { // 플레이어 좌표 초기화
-    pos->x = 0;
-    pos->y = 0;
+    pos->x = MAP_WIDTH / 2;
+    pos->y = MAP_HEIGHT / 2;
 }
 
 void move(Player* pos, char dir) { // wasd 키를 입력해 좌표 이동
@@ -28,4 +29,8 @@ void move(Player* pos, char dir) { // wasd 키를 입력해 좌표 이동
     case 'a': pos->x--; break; // 왼쪽
     case 'd': pos->x++; break; // 오른쪽
     }
+}
+
+void drawPlayer(Player* p, char map[][MAP_WIDTH]) { // 플레이어 화면 출력
+    map[p->y][p->x] = '*';
 }

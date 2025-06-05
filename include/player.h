@@ -1,6 +1,8 @@
 ﻿#ifndef PLAYER_H
 #define PLAYER_H
 
+#include "map.h"
+
 typedef struct { // 플레이어 정보
     int hp;
     int max_hp; 
@@ -16,5 +18,7 @@ void heal(Player* p, int amount); // 플레이어가 회복할 때 HP 증가
 
 void initPosition(Player* pos); // 플레이어 좌표 초기화
 void move(Player* pos, char dir); // 플레이어 좌표 이동
+
+void drawPlayer(Player* p, char map[][MAP_WIDTH]); // 플레이어 화면 출력
 
 #endif
