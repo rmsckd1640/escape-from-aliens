@@ -68,9 +68,9 @@ int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
                 printf("[아이템] 폭탄 발동!\n");
                 for (int j = 0; j < MAX_ENEMIES; j++) {
                     if (enemies[j].active) {
-                        int dx = enemies[j].x - playerX;
-                        int dy = enemies[j].y - playerY;
-                        if (dx * dx + dy * dy <= 4) {
+                        int dx = abs(enemies[j].x - playerX);
+                        int dy = abs(enemies[j].y - playerY);
+                        if (dx <= 1 && dy <= 1) {
                             enemies[j].active = 0;
                         }
                     }
