@@ -54,15 +54,13 @@ void drawItems() {
     }
 }
 
-int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
-    int bonus = 0;
-
+void checkItemCollision(int playerX, int playerY, PlayerHP* hp) {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (items[i].active && items[i].x == playerX && items[i].y == playerY) {
             switch (items[i].symbol) {
             case 'H':
-                printf("[아이템] 체력 회복 +5!\n");
-                bonus = 5;
+                printf("[아이템] 체력 회복 +1!\n");
+                heal(hp, 1);
                 break;
             case 'B':
                 printf("[아이템] 폭탄 발동!\n");
@@ -77,13 +75,10 @@ int checkItemCollision(int playerX, int playerY, int* speedBoostTurns) {
                 }
                 break;
             }
-
             items[i].active = 0;
             break;
         }
     }
-
-    return bonus;
 }
 
 void updateItems() {
@@ -120,4 +115,14 @@ void respawnItems() {
             printf("[재배치] 아이템 '%c'이(가) 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
         }
     }
+}
+
+// ♥♥♡ 형태로 체력 출력
+void printHPBar(PlayerHP* hp) {
+    printf("HP: ");
+    for (int i = 0; i < hp->max_hp; i++) {
+        if (i < hp->hp) printf("\u2665");  // ♥
+        else printf("\u2661");             // ♡
+    }
+    printf(" (%d/%d)\n", hp->hp, hp->max_hp);
 }
