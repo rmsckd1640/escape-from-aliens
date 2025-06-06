@@ -28,7 +28,7 @@ void spawnEnemy(const Player p) {
                 int dy = enemy_y - p.y;
                 distance = sqrt((double)dx * dx + (double)dy * dy);
 
-            } while (distance < 3);  // 거리 3 미만이면 다시 생성
+            } while (distance < 5);  // 거리 3 미만이면 다시 생성
 
             enemies[i].x = enemy_x;
             enemies[i].y = enemy_y;
@@ -43,39 +43,37 @@ void spawnEnemy(const Player p) {
 //적 이동 알고리즘 추후 개선
 void moveEnemiesDown(const Player p) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
-        if (enemies[i].active) {
+        if (!enemies[i].active) continue;
 
-            if (enemies[i].type == 0) {//적이 플레이어 기준으로 이동하는 타입
-                // x 방향 이동
-                if (enemies[i].x < p.x) {
-                    enemies[i].x++;
-                }
-                else if (enemies[i].x > p.x) {
-                    enemies[i].x--;
-                }
 
-                // y 방향 이동
-                if (enemies[i].y < p.y) {
-                    enemies[i].y++;
-                }
-                else if (enemies[i].y > p.y) {
-                    enemies[i].y--;
-                }
+        int dx = 0, dy = 0;
+
+        if (enemies[i].type == 0) {//적이 플레이어 기준으로 이동하는 타입
+            if (enemies[i].x == p.x)
+            {
+                dy += (enemies[i].y < p.y) ? 1 : -1;
             }
-
-            else if (enemies[i].type == 1) {//적이 랜덤으로 이동하는 타입
-                if (rand() % 2) {
-                    enemies[i].x += (enemies[i].x < p.x) ? 1 : -1;
-                }
-                else {
-                    enemies[i].y += (enemies[i].y < p.y) ? 1 : -1;
-                }
+            else if (enemies[i].y == p.y)
+            {
+                dx += (enemies[i].x < p.x) ? 1 : -1;
             }
-
-            // 적이 플레이어에게 닿았을 시 사라짐
-            if (enemies[i].x == p.x && enemies[i].y == p.y) {
-                enemies[i].active = 0;
+            else if (rand() % 2) {
+                dx += (enemies[i].x < p.x) ? 1 : -1;
             }
+            else {
+                dy += (enemies[i].y < p.y) ? 1 : -1;
+            }
+        }
+
+        else if (enemies[i].type == 1) {//적이 랜덤으로 이동하는 타입
+            
+        }
+
+        moveCheckEnemy(&enemies[i], dx, dy);
+
+        // 적이 플레이어에게 닿았을 시 사라짐
+        if (enemies[i].x == p.x && enemies[i].y == p.y) {
+            enemies[i].active = 0;
         }
     }
 }
