@@ -1,31 +1,36 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include "player.h"
+#include "map.h"
 
-void initHP(PlayerHP* p) { // ÇÃ·¹ÀÌ¾î HP = 3 ÃÊ±âÈ­
+void initHP(Player* p) { // í”Œë ˆì´ì–´ HP ì´ˆê¸°í™”
     p->max_hp = 3;
     p->hp = p->max_hp;
 }
 
-void takeDamage(PlayerHP* p, int dmg) { 
-    p->hp -= dmg; // HP¿¡¼­ µ¥¹ÌÁö¸¸Å­ °¨¼Ò
-    if (p->hp < 0) p->hp = 0; // HP°¡ 0º¸´Ù ÀÛ¾ÆÁö¸é 0À¸·Î °íÁ¤
+void takeDamage(Player* p, int dmg) { 
+    p->hp -= dmg; // HPì—ì„œ ë°ë¯¸ì§€ë§Œí¼ ê°ì†Œ
+    if (p->hp < 0) p->hp = 0; // HPê°€ 0ë³´ë‹¤ ìž‘ì•„ì§€ë©´ 0ìœ¼ë¡œ ê³ ì •
 }
 
-void heal(PlayerHP* p, int amount) {
-    p->hp += amount; // HP¿¡ È¸º¹·®¸¸Å­ Ãß°¡
-    if (p->hp > p->max_hp) p->hp = p->max_hp; // HP°¡ ÃÖ´ë HPº¸´Ù Ä¿Áö¸é ÃÖ´ë HP·Î °íÁ¤
+void heal(Player* p, int amount) {
+    p->hp += amount; // HPì— íšŒë³µëŸ‰ë§Œí¼ ì¶”ê°€
+    if (p->hp > p->max_hp) p->hp = p->max_hp; // HPê°€ ìµœëŒ€ HPë³´ë‹¤ ì»¤ì§€ë©´ ìµœëŒ€ HPë¡œ ê³ ì •
 }
 
-void initPosition(Position* pos) { // ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÃÊ±âÈ­
-    pos->x = 0;
-    pos->y = 0;
+void initPosition(Player* pos) { // í”Œë ˆì´ì–´ ì¢Œí‘œ ì´ˆê¸°í™”
+    pos->x = MAP_WIDTH / 2;
+    pos->y = MAP_HEIGHT / 2;
 }
 
-void move(Position* pos, char dir) { // wasd Å°¸¦ ÀÔ·ÂÇØ ÁÂÇ¥ ÀÌµ¿
+void move(Player* pos, char dir) { // wasd í‚¤ë¥¼ ìž…ë ¥í•´ ì¢Œí‘œ ì´ë™
     switch (dir) {
-    case 'w': pos->y--; break; // À§
-    case 's': pos->y++; break; // ¾Æ·¡
-    case 'a': pos->x--; break; // ¿ÞÂÊ
-    case 'd': pos->x++; break; // ¿À¸¥ÂÊ
+    case 'w': pos->y--; break; // ìœ„
+    case 's': pos->y++; break; // ì•„ëž˜
+    case 'a': pos->x--; break; // ì™¼ìª½
+    case 'd': pos->x++; break; // ì˜¤ë¥¸ìª½
     }
+}
+
+void drawPlayer(Player* p, char map[][MAP_WIDTH]) { // í”Œë ˆì´ì–´ í™”ë©´ ì¶œë ¥
+    map[p->y][p->x] = '*';
 }
