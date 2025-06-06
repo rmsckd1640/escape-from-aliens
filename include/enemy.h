@@ -24,10 +24,10 @@ void initEnemies();
 // 적을 생성하고 적 배열에 등록한다.
 // 함수 호출 시 적 1명 생성함.
 // @param pos: player 위치 정보 
-void spawnEnemy(const Position pos);
+void spawnEnemy(const Player p);
 
 // 적 움직임 설정
 // 함수 호출 시 적에 대한 위치가 랜덤으로 변함.
 // @param pos: player 위치 정보 
-void moveEnemiesDown(const Position pos);
+void moveEnemiesDown(const Player p);
 #endif

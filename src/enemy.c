@@ -11,7 +11,7 @@ void initEnemies() {
 }
 
 //적 생성
-void spawnEnemy(const Position pos) {
+void spawnEnemy(const Player p) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (!enemies[i].active) {
             int enemy_x, enemy_y;
@@ -24,8 +24,8 @@ void spawnEnemy(const Position pos) {
                 enemy_y = (rand() % (MAP_HEIGHT -2)) + 1;
 
                 // 플레이어와의 거리 계산
-                int dx = enemy_x - pos.x;
-                int dy = enemy_y - pos.y;
+                int dx = enemy_x - p.x;
+                int dy = enemy_y - p.y;
                 distance = sqrt((double)dx * dx + (double)dy * dy);
 
             } while (distance < 3);  // 거리 3 미만이면 다시 생성
@@ -41,41 +41,54 @@ void spawnEnemy(const Position pos) {
 }
 
 //적 이동 알고리즘 추후 개선
-void moveEnemiesDown(const Position pos) {
+void moveEnemiesDown(const Player p) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
 
             if (enemies[i].type == 0) {//적이 플레이어 기준으로 이동하는 타입
                 // x 방향 이동
-                if (enemies[i].x < pos.x) {
+                if (enemies[i].x < p.x) {
                     enemies[i].x++;
                 }
-                else if (enemies[i].x > pos.x) {
+                else if (enemies[i].x > p.x) {
                     enemies[i].x--;
                 }
 
                 // y 방향 이동
-                if (enemies[i].y < pos.y) {
+                if (enemies[i].y < p.y) {
                     enemies[i].y++;
                 }
-                else if (enemies[i].y > pos.y) {
+                else if (enemies[i].y > p.y) {
                     enemies[i].y--;
                 }
             }
 
             else if (enemies[i].type == 1) {//적이 랜덤으로 이동하는 타입
                 if (rand() % 2) {
-                    enemies[i].x += (enemies[i].x < pos.x) ? 1 : -1;
+                    enemies[i].x += (enemies[i].x < p.x) ? 1 : -1;
                 }
                 else {
-                    enemies[i].y += (enemies[i].y < pos.y) ? 1 : -1;
+                    enemies[i].y += (enemies[i].y < p.y) ? 1 : -1;
                 }
             }
 
             // 적이 플레이어에게 닿았을 시 사라짐
-            if (enemies[i].x == pos.x && enemies[i].y == pos.y) {
+            if (enemies[i].x == p.x && enemies[i].y == p.y) {
                 enemies[i].active = 0;
             }
         }
+    }
+}
+
+void moveCheckEnemy(Enemy* enemy, int dx, int dy) {
+    int newX = enemy->x + dx;
+    int newY = enemy->y + dy;
+
+    // 맵 밖으로 나가지 않도록 제한
+    if (newX >= 1 && newX < MAP_WIDTH) {
+        enemy->x = newX;
+    }
+    if (newY >= 1 && newY < MAP_HEIGHT) {
+        enemy->y = newY;
     }
 }
