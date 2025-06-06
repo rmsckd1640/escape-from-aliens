@@ -1,10 +1,10 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-
-#define MAX_ENEMIES 100
-
 #include "player.h"
 #include "map.h"
+
+#define MAX_ENEMIES 10
+#define MAX_BULLETS 100
 
 typedef struct {
     int x;
@@ -13,12 +13,20 @@ typedef struct {
     int type; //적 종류 - E : 랜덤으로 이동 , e : 플레이어에게 다가옴
 }Enemy;
 
+typedef struct {
+    int x, y;       // 현재 위치
+    int dx, dy;     // 이동 방향
+    int active;     // 활성 상태
+} Bullet;
+
 //적 정보 배열
 Enemy enemies[MAX_ENEMIES];
+Bullet bullets[MAX_BULLETS];
 
 //적 초기화
 //MAX_ENEMIES에 입력된 숫자만큼 적 생성 가능
 //적을 전부 없애고 싶을때도 사용 가능
+//bullet 초기화
 void initEnemies();
 
 // 적을 생성하고 적 배열에 등록한다.
@@ -37,4 +45,10 @@ void moveEnemiesDown(const Player p);
 // @param dx: x좌표 이동 예정 값
 // @param dy: y좌표 이동 예정 값
 void moveCheckEnemy(Enemy* enemy, int dx, int dy);
+
+// 맵 가장자리에 총알을 생성
+void spawnBulletFromEdge();
+
+// 총알 한 칸 이동
+void moveBullets();
 #endif

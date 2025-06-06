@@ -8,6 +8,6 @@
 
 // 적이 플레이어에게 닿았는지 검사하고 데미지를 입힌다.
 // @param enemies: 적 배열
-void checkEnemyCollision(PlayerHP* playerHp, const Position* playerPos, Enemy* enemies, int enemyCount);
+void checkEnemyCollision(Player *p, Enemy* enemies, int enemyCount);
 
 #endif
