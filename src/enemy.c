@@ -45,7 +45,6 @@ void moveEnemiesDown(const Player p) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (!enemies[i].active) continue;
 
-
         int dx = 0, dy = 0;
 
         if (enemies[i].type == 0) {//적이 플레이어 기준으로 이동하는 타입
@@ -66,7 +65,8 @@ void moveEnemiesDown(const Player p) {
         }
 
         else if (enemies[i].type == 1) {//적이 랜덤으로 이동하는 타입
-            
+            dx = (rand() % 3) - 1;
+            dy = (rand() % 3) - 1;
         }
 
         moveCheckEnemy(&enemies[i], dx, dy);
@@ -83,10 +83,10 @@ void moveCheckEnemy(Enemy* enemy, int dx, int dy) {
     int newY = enemy->y + dy;
 
     // 맵 밖으로 나가지 않도록 제한
-    if (newX >= 1 && newX < MAP_WIDTH) {
+    if (newX >= 1 && newX < MAP_WIDTH-1) {
         enemy->x = newX;
     }
-    if (newY >= 1 && newY < MAP_HEIGHT) {
+    if (newY >= 1 && newY < MAP_HEIGHT-1 ) {
         enemy->y = newY;
     }
 }
