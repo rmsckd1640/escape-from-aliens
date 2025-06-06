@@ -4,14 +4,21 @@
 #include <math.h>
 #include "enemy.h"
 
+//초기화
 void initEnemies() {
+    //적 초기화
     for (int i = 0; i < MAX_ENEMIES; i++) {
         enemies[i].active = 0;
+    }
+    //총알 초기화
+    for (int i = 0; i < MAX_BULLETS; i++) {
+        bullets[i].active = 0;
     }
 }
 
 //적 생성
 void spawnEnemy(const Player p) {
+    //적 생성
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (!enemies[i].active) {
             int enemy_x, enemy_y;
@@ -40,7 +47,7 @@ void spawnEnemy(const Player p) {
     }
 }
 
-//적 이동 알고리즘 추후 개선
+//적 이동 알고리즘
 void moveEnemiesDown(const Player p) {
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (!enemies[i].active) continue;
@@ -78,6 +85,7 @@ void moveEnemiesDown(const Player p) {
     }
 }
 
+//적 이동 반경 확인
 void moveCheckEnemy(Enemy* enemy, int dx, int dy) {
     int newX = enemy->x + dx;
     int newY = enemy->y + dy;
@@ -90,3 +98,68 @@ void moveCheckEnemy(Enemy* enemy, int dx, int dy) {
         enemy->y = newY;
     }
 }
+
+//총알 생성 함수
+void spawnBulletFromEdge() {
+    int edge = rand() % 4;  // 0: top, 1: bottom, 2: left, 3: right
+    int x=0 , y=0 , dx = 0, dy = 0;
+
+    switch (edge) {
+    case 0: // top
+        x = rand() % MAP_WIDTH;
+        y = 0;
+        dy = 1;
+        break;
+    case 1: // bottom
+        x = rand() % MAP_WIDTH;
+        y = MAP_HEIGHT - 1;
+        dy = -1;
+        break;
+    case 2: // left
+        x = 0;
+        y = 1 + rand() % (MAP_HEIGHT - 2);
+        dx = 1;
+        break;
+    case 3: // right
+        x = MAP_WIDTH - 1;
+        y = 1 + rand() % (MAP_HEIGHT - 2);
+        dx = -1;
+        break;
+    }
+
+    // bullets 배열에서 비활성화된 것 찾아서 할당
+    for (int i = 0; i < MAX_BULLETS; i++) {
+        if (!bullets[i].active) {
+            bullets[i].x = x;
+            bullets[i].y = y;
+            bullets[i].dx = dx;
+            bullets[i].dy = dy;
+            bullets[i].active = 1;
+            break;
+        }
+    }
+}
+
+//총알 이동 알고리즘
+void moveBullets() {
+    for (int i = 0; i < MAX_BULLETS; i++) {
+        if (!bullets[i].active) continue;
+
+        int newX = bullets[i].x + bullets[i].dx;
+        int newY = bullets[i].y + bullets[i].dy;
+
+        int hitWallX = (newX < 1 || newX >= MAP_WIDTH-1 );
+        int hitWallY = (newY < 1 || newY >= MAP_HEIGHT-1 );
+
+        // 벽에 닿으면 사라짐
+        if (hitWallX || hitWallY) {
+            bullets[i].active = 0;
+            continue;
+        }
+
+        // 이동 적용
+        bullets[i].x = newX;
+        bullets[i].y = newY;
+    }
+}
+
