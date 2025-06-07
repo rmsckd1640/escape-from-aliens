@@ -51,4 +51,7 @@ void spawnBulletFromEdge();
 
 // 총알 한 칸 이동
 void moveBullets();
+
+void drawEnemy();
+
 #endif
