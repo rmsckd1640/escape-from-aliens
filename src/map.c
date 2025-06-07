@@ -42,10 +42,7 @@ void drawMap(void) {
         putchar('\n');
     }
 
-    // 5. 플레이어 HP 출력
-    printHPBar(&p);  // ♥♥♡ 형태로 HP 바 출력
-
-    // 6. 아이템 충돌 체크 (아이템을 먹었는지 검사하고 효과 적용)
+    // 5. 아이템 충돌 체크 (아이템을 먹었는지 검사하고 효과 적용)
     checkItemCollision(p.x, p.y, &p);
 }
 
