@@ -40,8 +40,8 @@ void spawnEnemy(const Player p) {
             enemies[i].x = enemy_x;
             enemies[i].y = enemy_y;
             enemies[i].active = 1;
-            enemies[i].type = rand() % 2;
 
+            enemies[i].type = rand() % 5 == 0 ? 0 : 1;
             break; // 하나만 생성
         }
     }
@@ -158,3 +158,22 @@ void moveBullets() {
     }
 }
 
+void drawEnemy() {
+    // 1. 적 출력
+    for (int i = 0; i < MAX_BULLETS; i++) {
+        if (bullets[i].active) {
+            map[bullets[i].y][bullets[i].x] = 'x';
+        }
+    }
+
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        if (enemies[i].active) {
+            if (enemies->type == 0) {
+                map[enemies[i].y][enemies[i].x] = 'E';
+            }
+            else {
+                map[enemies[i].y][enemies[i].x] = 'o';
+            }
+        }
+    }
+}
