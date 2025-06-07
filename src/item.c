@@ -62,11 +62,9 @@ void checkItemCollision(int playerX, int playerY, Player* p) {
         if (items[i].active && items[i].x == playerX && items[i].y == playerY) {
             switch (items[i].symbol) {
             case 'H':
-                printf("[아이템] 체력 회복 +1!\n");
                 heal(p, 1);
                 break;
             case 'B':
-                printf("[아이템] 폭탄 발동!\n");
                 for (int j = 0; j < MAX_ENEMIES; j++) {
                     if (enemies[j].active) {
                         int dx = abs(enemies[j].x - playerX);
@@ -117,7 +115,6 @@ void respawnItems() {
                 items[i].x = px;
                 items[i].y = py;
                 items[i].created_at = now;  // 재배치 시 시간 초기화
-                printf("[재배치] 아이템 '%c'이(가) 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
             }
         }
     }
