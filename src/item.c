@@ -69,8 +69,17 @@ void checkItemCollision(int playerX, int playerY, Player* p) {
                     if (enemies[j].active) {
                         int dx = abs(enemies[j].x - playerX);
                         int dy = abs(enemies[j].y - playerY);
-                        if (dx <= 1 && dy <= 1) {
+                        if (dx <= 3 && dy <= 3) {
                             enemies[j].active = 0;
+                        }
+                    }
+                }
+                for (int j = 0; j < MAX_BULLETS; j++) {
+                    if (bullets[j].active) {
+                        int dx = abs(bullets[j].x - playerX);
+                        int dy = abs(bullets[j].y - playerY);
+                        if (dx <= 3 && dy <= 3) {
+                            bullets[j].active = 0;
                         }
                     }
                 }
@@ -121,7 +130,7 @@ void respawnItems() {
 }
 
 void printHPBar(Player* p) {
-    printf("HP: ");
+    printf("              HP: ");
     for (int i = 0; i < p->max_hp; i++) {
         if (i < p->hp) printf("\u2665");
         else printf("\u2661");
