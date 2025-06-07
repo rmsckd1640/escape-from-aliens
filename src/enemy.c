@@ -77,11 +77,6 @@ void moveEnemiesDown(const Player p) {
         }
 
         moveCheckEnemy(&enemies[i], dx, dy);
-
-        // 적이 플레이어에게 닿았을 시 사라짐
-        if (enemies[i].x == p.x && enemies[i].y == p.y) {
-            enemies[i].active = 0;
-        }
     }
 }
 
