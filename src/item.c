@@ -4,10 +4,14 @@
 #include "item.h"
 #include "map.h"
 #include "enemy.h"
+#include "player.h"
 
-Item items[MAX_ITEMS];
+Item items[MAX_ITEMS]; //아이템들을 저장하는 배열. 동시에 등장 가능한 최대 아이템 수만큼 크기 고정.
+const int ITEM_TYPES_COUNT = 2; // 아이템 종류가 2개라는 것
 
-const int ITEM_TYPES_COUNT = 2;
+#define ITEM_LIFESPAN_SEC 10      // 아이템이 생성된 후 10초 동안 유지된다 (10초 지나면 사라짐)
+#define RESPAWN_THRESHOLD_SEC 5   // 아이템이 생성된 지 5초가 지나면 새 위치로 재배치할 수 있음
+
 
 void initItems() {
     for (int i = 0; i < MAX_ITEMS; i++) {
@@ -16,17 +20,16 @@ void initItems() {
 }
 
 char getRandomItemSymbol() {
-    return (rand() % 100 < 60) ? 'H' : 'B';  // 체력 또는 폭탄
+    return (rand() % 100 < 60) ? 'H' : 'B';  // 60%확률로 H, 40%확률로 B 
 }
 
 void spawnItem() {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (!items[i].active) {
-            int px, py, overlap;
+            int px, py, overlap; //랜덤으로 좌표 생성
             do {
                 px = rand() % (MAP_WIDTH - 2) + 1;
                 py = rand() % (MAP_HEIGHT - 2) + 1;
-
                 overlap = 0;
                 for (int j = 0; j < MAX_ITEMS; j++) {
                     if (items[j].active && items[j].x == px && items[j].y == py) {
@@ -40,7 +43,7 @@ void spawnItem() {
             items[i].y = py;
             items[i].symbol = getRandomItemSymbol();
             items[i].active = 1;
-            items[i].lifetime = 20;
+            items[i].created_at = time(NULL);  // 생성 시간 기록
             break;
         }
     }
@@ -54,13 +57,13 @@ void drawItems() {
     }
 }
 
-void checkItemCollision(int playerX, int playerY, PlayerHP* hp) {
+void checkItemCollision(int playerX, int playerY, Player* p) {
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (items[i].active && items[i].x == playerX && items[i].y == playerY) {
             switch (items[i].symbol) {
             case 'H':
                 printf("[아이템] 체력 회복 +1!\n");
-                heal(hp, 1);
+                heal(p, 1);
                 break;
             case 'B':
                 printf("[아이템] 폭탄 발동!\n");
@@ -82,10 +85,11 @@ void checkItemCollision(int playerX, int playerY, PlayerHP* hp) {
 }
 
 void updateItems() {
+    time_t now = time(NULL);
     for (int i = 0; i < MAX_ITEMS; i++) {
         if (items[i].active) {
-            items[i].lifetime--;
-            if (items[i].lifetime <= 0) {
+            double elapsed = difftime(now, items[i].created_at);
+            if (elapsed >= ITEM_LIFESPAN_SEC) {
                 items[i].active = 0;
             }
         }
@@ -93,36 +97,37 @@ void updateItems() {
 }
 
 void respawnItems() {
+    time_t now = time(NULL);
     for (int i = 0; i < MAX_ITEMS; i++) {
-        if (items[i].active && items[i].lifetime <= 5) {
-            int px, py, overlap;
-            do {
-                px = rand() % (MAP_WIDTH - 2) + 1;
-                py = rand() % (MAP_HEIGHT - 2) + 1;
-
-                overlap = 0;
-                for (int j = 0; j < MAX_ITEMS; j++) {
-                    if (items[j].active && items[j].x == px && items[j].y == py) {
-                        overlap = 1;
-                        break;
+        if (items[i].active) {
+            double elapsed = difftime(now, items[i].created_at);
+            if (elapsed >= RESPAWN_THRESHOLD_SEC && elapsed < ITEM_LIFESPAN_SEC) {
+                int px, py, overlap;
+                do {
+                    px = rand() % (MAP_WIDTH - 2) + 1;
+                    py = rand() % (MAP_HEIGHT - 2) + 1;
+                    overlap = 0;
+                    for (int j = 0; j < MAX_ITEMS; j++) {
+                        if (items[j].active && items[j].x == px && items[j].y == py) {
+                            overlap = 1;
+                            break;
+                        }
                     }
-                }
-            } while (overlap);
-
-            items[i].x = px;
-            items[i].y = py;
-            items[i].lifetime = 20;
-            printf("[재배치] 아이템 '%c'이(가) 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
+                } while (overlap);
+                items[i].x = px;
+                items[i].y = py;
+                items[i].created_at = now;  // 재배치 시 시간 초기화
+                printf("[재배치] 아이템 '%c'이(가) 새 위치로 이동함 (%d,%d)\n", items[i].symbol, px, py);
+            }
         }
     }
 }
 
-// ♥♥♡ 형태로 체력 출력
-void printHPBar(PlayerHP* hp) {
+void printHPBar(Player* p) {
     printf("HP: ");
-    for (int i = 0; i < hp->max_hp; i++) {
-        if (i < hp->hp) printf("\u2665");  // ♥
-        else printf("\u2661");             // ♡
+    for (int i = 0; i < p->max_hp; i++) {
+        if (i < p->hp) printf("\u2665");
+        else printf("\u2661");
     }
-    printf(" (%d/%d)\n", hp->hp, hp->max_hp);
+    printf(" (%d/%d)\n", p->hp, p->max_hp);
 }
