@@ -27,10 +27,10 @@ void move(Player* pos, char dir) { // wasd 키를 입력해 좌표 이동
     int new_y = pos->y;
 
     switch (dir) {
-    case 'w': pos->y--; break; // 위
-    case 's': pos->y++; break; // 아래
-    case 'a': pos->x--; break; // 왼쪽
-    case 'd': pos->x++; break; // 오른쪽
+    case 'w': new_y--; break; // 위
+    case 's': new_y++; break; // 아래
+    case 'a': new_x--; break; // 왼쪽
+    case 'd': new_x++; break; // 오른쪽
     }
 
     if (new_x > 0 && new_x < MAP_WIDTH - 1 && 
