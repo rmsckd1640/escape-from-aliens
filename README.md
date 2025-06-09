@@ -70,7 +70,7 @@ git clone https://github.com/rmsckd1640/escape-from-aliens.git
 ### 🧱 빌드 및 실행
 
 1. 오른쪽 상단의 **망치 아이콘(🛠️)** 을 클릭하여 빌드를 완료합니다.
-2. CLion 하단의 **Terminal** 탭을 클릭하거나, 폴더 경로에서 직접 터미널을 엽니다. **터미널에서 실행해야 잘 됩니다!!**
+2. 프로젝트 폴더 경로에서 직접 터미널을 엽니다. **터미널을 직접 열어서 실행해야 잘 됩니다!!**
 3. 아래 명령어를 입력해 실행합니다:
 ```bash
 ./cmake-build-debug/escape-from-aliens
