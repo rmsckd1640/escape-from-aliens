@@ -126,6 +126,7 @@ int start(void) {
 #endif
             if (input == 'q') break;
             move(&p, input);
+            checkEnemyCollision(&p, enemies);
         }
 
         drawMap();
