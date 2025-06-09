@@ -19,6 +19,13 @@
 ### 랭킹 시스템!
 생존 시간에 따라 스코어가 기록되며, 최고 기록 9개가 랭킹에 저장됩니다.
 
+## 게임 화면
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bcbbf1da-7460-4f11-bcf0-110be8b26b09" width="200"/>
+  <img src="https://github.com/user-attachments/assets/46427988-8011-4228-88f0-16687e416bf6" width="200"/>
+   <img src="https://github.com/user-attachments/assets/6ec24901-7abd-4abf-8cf0-e5092715606e" width="200"/>
+</p>
+
 
 ---
 
