@@ -21,9 +21,9 @@
 
 ## 게임 화면
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bcbbf1da-7460-4f11-bcf0-110be8b26b09" width="200"/>
-  <img src="https://github.com/user-attachments/assets/46427988-8011-4228-88f0-16687e416bf6" width="200"/>
-   <img src="https://github.com/user-attachments/assets/6ec24901-7abd-4abf-8cf0-e5092715606e" width="200"/>
+  <img src="https://github.com/user-attachments/assets/ec11b084-7f20-468e-af61-6ea53fdce683" alt="게임 화면 1" width="250" height="250" />
+  <img src="https://github.com/user-attachments/assets/cbc8fb89-2304-4dd3-8963-3b82302fcf53" alt="게임 화면 2" width="250" height="250" />
+  <img src="https://github.com/user-attachments/assets/78aa467a-58d6-4107-8680-c5f4f491b56b" alt="게임 화면 3" width="250" height="250" />
 </p>
 
 
