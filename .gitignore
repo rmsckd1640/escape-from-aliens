@@ -29,3 +29,5 @@ CMakeUserPresets.json
 # 테스트 파일
 test.c
 test.h
+
+score_rank.txt
