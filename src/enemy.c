@@ -168,7 +168,7 @@ void drawEnemy() {
 
     for (int i = 0; i < MAX_ENEMIES; i++) {
         if (enemies[i].active) {
-            if (enemies->type == 0) {
+            if (enemies[i].type == 0) {
                 map[enemies[i].y][enemies[i].x] = '@';
             }
             else {
