@@ -160,6 +160,8 @@ void end() {
             putchar('\n');
         }
     }
+    printf("                                               \n");
+    printf("                                               \n");
 
     saveScoreWithTime(playTime);
     SLEEP(3000);
@@ -243,7 +245,6 @@ int main(void) {
                 putchar('\n');
             }
         }
-
 #ifdef _WIN32
         while (!_kbhit()) { SLEEP(10); }
         input = _getch();
