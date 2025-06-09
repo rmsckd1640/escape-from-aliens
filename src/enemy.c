@@ -41,7 +41,7 @@ void spawnEnemy(const Player p) {
             enemies[i].y = enemy_y;
             enemies[i].active = 1;
 
-            enemies[i].type = rand() % 5 == 0 ? 0 : 1;
+            enemies[i].type = rand() % 2;
             break; // 하나만 생성
         }
     }
