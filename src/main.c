@@ -190,7 +190,7 @@ void showScore() {
             if (count == 0 && y == 7) {
                 printf("#               기록 없음              #\n");
             } else if (idx < count) {
-                printf("#             %2d등 : %3d초             #\n", idx + 1, scores[idx]);
+                printf("#             %2d등 : %4d초            #\n", idx + 1, scores[idx]);
             } else {
                 printf("#                                      #\n");
             }
@@ -230,10 +230,13 @@ int main(void) {
                 printf("#             외계인이 쏜다            #\n");
             }
             else if (y == 10) {
-                printf("#             게임 시작 : s            #\n");
+                printf("#             게임 시작 : f            #\n");
             }
             else if (y == 13) {
                 printf("#             랭킹 보기 : r            #\n");
+            }
+            else if (y == 16) {
+                printf("#             게임 종료 : q            #\n");
             }
             else {
                 for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
@@ -249,7 +252,7 @@ int main(void) {
         input = getchar();
 #endif
 
-        if (input == 's') {
+        if (input == 'f') {
             start();
             end();
         }
