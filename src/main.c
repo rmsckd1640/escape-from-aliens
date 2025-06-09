@@ -136,7 +136,7 @@ int start(void) {
         frame++;
         endTime = time(NULL);
         playTime = (int)(endTime - startTime);
-        printf("\n½Ã°£: %4dÃÊ", playTime);
+        printf("\nì‹œê°„: %4dì´ˆ", playTime);
         printHPBar(&p);
 
         SLEEP(FRAME_RE);
@@ -154,7 +154,7 @@ void end() {
             printf("#              game over               #\n");
         }
         else if (y == 12) {
-            printf("#             ½Ã°£:  %4dÃÊ            #\n", playTime);
+            printf("#             ì‹œê°„:  %4dì´ˆ            #\n", playTime);
         }
         else {
             for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
@@ -180,6 +180,11 @@ void showScore() {
         fclose(file);
     }
 
+    int rank = 1;         // í˜„ì¬ ë“±ìˆ˜
+    int printed = 0;      // ëª‡ ê°œ ì¶œë ¥í–ˆëŠ”ì§€
+    int prevScore = -1;   // ì´ì „ ì ìˆ˜
+    int actualRank = 1;   // ì¶œë ¥ë˜ëŠ” ì‹¤ì œ ë“±ìˆ˜ (ì í”„ í¬í•¨)
+
     for (int y = 0; y < MAP_HEIGHT; y++) {
         if (y == 0 || y == MAP_HEIGHT - 1) {
             for (int x = 0; x < MAP_WIDTH; x++) putchar('#');
@@ -191,22 +196,42 @@ void showScore() {
         else if (y >= 5 && y <= 13) {
             int idx = y - 5;
             if (count == 0 && y == 7) {
-                printf("#               ±â·Ï ¾øÀ½              #\n");
-            } else if (idx < count) {
-                printf("#             %2dµî : %4dÃÊ            #\n", idx + 1, scores[idx]);
-            } else {
+                printf("#               ê¸°ë¡ ì—†ìŒ              #\n");
+            }
+            else if (y >= 5 && y <= 13) {
+                if (printed >= count) {
+                    printf("#                                      #\n");
+                    continue;
+                }
+
+                int currentScore = scores[printed];
+
+                if (printed > 0 && currentScore == prevScore) {
+                    // ë™ì¼ ì ìˆ˜ë©´ ë“±ìˆ˜ ìœ ì§€
+                } else {
+                    actualRank = rank;  // ìƒˆë¡œìš´ ì ìˆ˜ë©´ ë“±ìˆ˜ ê°±ì‹ 
+                }
+
+                printf("#             %2dë“± : %4dì´ˆ            #\n", actualRank, currentScore);
+
+                prevScore = currentScore;
+                printed++;
+                rank++;
+            }
+
+            else {
                 printf("#                                      #\n");
             }
         }
         else if (y == 16) {
-            printf("#             µÚ·Î°¡±â : r             #\n");
+            printf("#             ë’¤ë¡œê°€ê¸° : r             #\n");
         }
         else {
             printf("#                                      #\n");
         }
     }
 
-    // r ´©¸¦ ¶§±îÁö ´ë±â
+    // r ëˆ„ë¥¼ ë•Œê¹Œì§€ ëŒ€ê¸°
     char input = 0;
     do {
 #ifdef _WIN32
@@ -230,16 +255,16 @@ int main(void) {
 
         for (int y = 0; y < MAP_HEIGHT; y++) {
             if (y == 5) {
-                printf("#             ¿Ü°èÀÎÀÌ ½ğ´Ù            #\n");
+                printf("#             ì™¸ê³„ì¸ì´ ìœë‹¤            #\n");
             }
             else if (y == 10) {
-                printf("#             °ÔÀÓ ½ÃÀÛ : f            #\n");
+                printf("#             ê²Œì„ ì‹œì‘ : f            #\n");
             }
             else if (y == 13) {
-                printf("#             ·©Å· º¸±â : r            #\n");
+                printf("#             ë­í‚¹ ë³´ê¸° : r            #\n");
             }
             else if (y == 16) {
-                printf("#             °ÔÀÓ Á¾·á : q            #\n");
+                printf("#             ê²Œì„ ì¢…ë£Œ : q            #\n");
             }
             else {
                 for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
@@ -263,7 +288,7 @@ int main(void) {
         }
         else if (input == 'q') {
             CLEAR_SCREEN();
-            printf("\n°ÔÀÓÀ» Á¾·áÇÕ´Ï´Ù. ¾È³çÈ÷ °¡¼¼¿ä!\n");
+            printf("\nê²Œì„ì„ ì¢…ë£Œí•©ë‹ˆë‹¤. ì•ˆë…•íˆ ê°€ì„¸ìš”!\n");
             break;
         }
     }
