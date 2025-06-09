@@ -33,17 +33,17 @@
 
 ```
 escape-from-aliens/
-├── include/             # 헤더 파일
-├── src/                 # 소스 코드
+├── include/                   # 헤더 파일
+├── src/                       # 소스 코드
 ├── .gitignore
-├── CMakeLists.txt       # CMake 빌드 설정
-├── README.md # 프로젝트 소개 및 실행 방법
-└── pull_request_template.md # pr 요청 규칙
+├── CMakeLists.txt             # CMake 빌드 설정
+├── README.md                  # 프로젝트 소개 및 설명
+└── pull_request_template.md   # pr 규칙
 ```
 
 ---
 
-# 🛠️ macOS에서 실행 방법 (CLion 기준)
+# 🛠️ macOS에서 실행 방법 (CLion + Terminal)
 
 ### ✅ 사전 준비
 
@@ -55,24 +55,26 @@ escape-from-aliens/
 
 ### 📂 프로젝트 열기
 
-1. 이 저장소를 GitHub에서 **clone**합니다.
+1. 이 저장소를 GitHub에서 데스크탑에 **clone**합니다.
 
 ```bash
+cd desktop
 git clone https://github.com/rmsckd1640/escape-from-aliens.git
 ```
 
 2. CLion을 실행하고 `Open`을 눌러 clone한 폴더를 엽니다.  
-3. 프로젝트가 열리면 자동으로 CMake 설정이 로드됩니다.
+3. 프로젝트가 열리면 자동으로 CMake 설정이 로드됩니다. (확인 누르기)
 
 ---
 
 ### 🧱 빌드 및 실행
 
-1. 오른쪽 상단 톱니바퀴 아이콘에서 `Build Project` 클릭  
-2. 또는 단축키 `⇧ Shift + F10`으로 실행  
-
-빌드가 완료되면 `cmake-build-debug/` 또는 `cmake-build-release/` 디렉토리 아래에 실행 파일이 생성되며, 게임이 바로 실행됩니다.
-
+1. 오른쪽 상단의 **망치 아이콘(🛠️)** 을 클릭하여 빌드를 완료합니다.
+2. CLion 하단의 **Terminal** 탭을 클릭하거나, 폴더 경로에서 직접 터미널을 엽니다. **터미널에서 실행해야 잘 됩니다!!**
+3. 아래 명령어를 입력해 실행합니다:
+```bash
+./cmake-build-debug/escape-from-aliens
+```
 ---
 
 # 🛠️ Windows에서 실행 방법 (Visual Studio 기준)
