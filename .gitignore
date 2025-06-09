@@ -5,6 +5,8 @@ CMakeFiles/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
+CMakePresets.json
+CMakeUserPresets.json
 
 # 실행파일
 *.exe
