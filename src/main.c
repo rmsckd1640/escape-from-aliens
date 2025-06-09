@@ -227,13 +227,13 @@ int main(void) {
 
         for (int y = 0; y < MAP_HEIGHT; y++) {
             if (y == 5) {
-                printf("#              \uAC8C\uC784  \uC81C\uBAA9              #\n");
+                printf("#             외계인이 쏜다            #\n");
             }
             else if (y == 10) {
-                printf("#            \uAC8C\uC784  \uC2DC\uC791 : s            #\n");
+                printf("#             게임 시작 : s            #\n");
             }
             else if (y == 13) {
-                printf("#            \uB7AD\uD0B9  \uD655\uC778 : r            #\n");
+                printf("#             랭킹 보기 : r            #\n");
             }
             else {
                 for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
