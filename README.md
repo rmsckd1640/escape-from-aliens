@@ -32,7 +32,7 @@
 ## 🧰 프로젝트 구조
 
 ```
-shooting_game_project/
+escape-from-aliens/
 ├── include/             # 헤더 파일
 ├── src/                 # 소스 코드
 ├── .gitignore
