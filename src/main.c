@@ -136,7 +136,7 @@ int start(void) {
         frame++;
         endTime = time(NULL);
         playTime = (int)(endTime - startTime);
-        printf("\n시간: %4d초", playTime);
+        printf("\nTime: %4d sec", playTime);
         printHPBar(&p);
 
         SLEEP(FRAME_RE);
@@ -151,10 +151,10 @@ void end() {
 
     for (int y = 0; y < MAP_HEIGHT; y++) {
         if (y == 5) {
-            printf("#              game over               #\n");
+            printf("#              Game Over               #\n");
         }
         else if (y == 12) {
-            printf("#             시간:  %4d초            #\n", playTime);
+            printf("#           Time: %4d sec             #\n", playTime);
         }
         else {
             for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
@@ -196,7 +196,7 @@ void showScore() {
         else if (y >= 5 && y <= 13) {
             int idx = y - 5;
             if (count == 0 && y == 7) {
-                printf("#               기록 없음              #\n");
+                printf("#           No records found         #\n");
             }
             else if (y >= 5 && y <= 13) {
                 if (printed >= count) {
@@ -212,7 +212,7 @@ void showScore() {
                     actualRank = rank;  // 새로운 점수면 등수 갱신
                 }
 
-                printf("#             %2d등 : %4d초            #\n", actualRank, currentScore);
+                printf("#             %2d  : %4d sec           #\n", actualRank, currentScore);
 
                 prevScore = currentScore;
                 printed++;
@@ -224,7 +224,7 @@ void showScore() {
             }
         }
         else if (y == 16) {
-            printf("#             뒤로가기 : r             #\n");
+            printf("#             return : r               #\n");
         }
         else {
             printf("#                                      #\n");
@@ -255,16 +255,16 @@ int main(void) {
 
         for (int y = 0; y < MAP_HEIGHT; y++) {
             if (y == 5) {
-                printf("#             외계인이 쏜다            #\n");
+                printf("#         !Escape from aliens!         #\n");
             }
             else if (y == 10) {
-                printf("#             게임 시작 : f            #\n");
+                printf("#            Start Game : f            #\n");
             }
             else if (y == 13) {
-                printf("#             랭킹 보기 : r            #\n");
+                printf("#          View Ranking : r            #\n");
             }
             else if (y == 16) {
-                printf("#             게임 종료 : q            #\n");
+                printf("#             Quit Game : q            #\n");
             }
             else {
                 for (int x = 0; x < MAP_WIDTH; x++) putchar(map[y][x]);
@@ -288,7 +288,7 @@ int main(void) {
         }
         else if (input == 'q') {
             CLEAR_SCREEN();
-            printf("\n게임을 종료합니다. 안녕히 가세요!\n");
+            printf("\nGoodbye!\n");
             break;
         }
     }
